@@ -18,22 +18,16 @@ namespace Battle_Arena_3
         public static void setCharName()
         {
             Console.Write("Hallo Abenteurer, wie ist dein Name: ");
-            try
-            {
-                Player.CharacterName = Console.ReadLine();
-                Console.WriteLine("Hallo {0}",Player.CharacterName);
-                Intro();
-            }
-            catch (Exception)
-            {
 
-                Console.WriteLine("Ein Fehler ist aufgetreten");               
-            }
+
+            PlayerStats.CharacterName = Console.ReadLine();
+            Console.WriteLine("Hallo {0}", PlayerStats.CharacterName);
+            Intro();
         }
         public static void Intro()
         {
             Random rdm = new Random();
-            Fighter strolch = new Fighter(Player.CharacterName, 150, 15, 5);
+            Fighter player = new Player(PlayerStats.CharacterName, 100, 15, 5,50);
             for (int i = 0; i < 3; i++)
             {
                 int hp = rdm.Next(80, 120);
@@ -41,15 +35,15 @@ namespace Battle_Arena_3
                 int armor = rdm.Next(2, 10);
                 Dialog("Ein Wilder Bär greift dich an!", ConsoleColor.Cyan);
                 Enemy enemy = new Enemy("Bär", hp, atk, armor, 50, 50);
-                Battle.StartFight(strolch, enemy);
+                Battle.StartFight(player, enemy);
                 if (!Battle.winner)
                 {
                     Defeat();
                     Console.ReadKey();
                     Environment.Exit(0);
                 }
-                Player.Gold += enemy.Gold;
-                Player.XP += enemy.Xp;
+                PlayerStats.Gold += enemy.Gold;
+                PlayerStats.XP += enemy.Xp;
                 Dialog(ConsoleColor.Green, enemy.Xp, enemy.Gold);
 
 
@@ -73,9 +67,27 @@ namespace Battle_Arena_3
         {
             Console.ForegroundColor = color;
             Console.WriteLine("Du erhälst {0} XP und {1} Gold",xp,gold);
-            Console.WriteLine("Du hast nun insgesamt {0} XP und {1} Gold", Player.XP, Player.Gold);
+            Console.WriteLine("Du hast nun insgesamt {0} XP und {1} Gold", PlayerStats.XP, PlayerStats.Gold);
             Console.ResetColor();
 
+        }
+        public static string BattleDialog(string message, ConsoleColor color, Player player)
+        {
+            String a;
+            do
+            {
+                Console.WriteLine("Du hast folgende Optionen:");
+                Console.WriteLine("Normaler Angriff: 1-{0} DMG : a", player.AttackMax);
+                Console.WriteLine("Vampirschlag 1-{0} DMG : b", player.AttackMax + 5);
+                a = Console.ReadLine();
+            } while ((a != "a") && (a!= "b"));
+            switch(a)
+            {
+                case "a": return "normal";
+                case "b": return "vamp";
+                default:  return "normal";
+            }
+                 
         }
 
 

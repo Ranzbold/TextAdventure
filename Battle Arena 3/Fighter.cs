@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battle_Arena_3
 {
-    class Fighter
+    public abstract class Fighter
     {
         public string Name { get; set; } = "Fighter";
         public double Health { get; set; } = 0;

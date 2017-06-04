@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace Battle_Arena_3
 {
-    class Player
+    class Player : Fighter
     {
-        public static int Level { get; set; }
-        public static int XP { get; set; }
-        public static int Gold { get; set; }
-        public static string CharacterName = "default";
+        public double Mana { get; set; }
 
-
+        public Player(string name = "Warrior", double health = 0, double attackMax = 0, double armorMax = 0, double mana = 0)
+        {
+            Name = name;
+            Health = health;
+            AttackMax = attackMax;
+            ArmorMax = armorMax;
+            Mana = mana;
+        }
 
     }
 }

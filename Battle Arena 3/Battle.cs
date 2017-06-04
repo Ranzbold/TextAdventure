@@ -33,12 +33,30 @@ namespace Battle_Arena_3
         {
             double fighterADmg = fighterA.Attack();
             double fighterBMit = fighterB.Mitigate();
+            bool lifesteal = false;
+            if (fighterA is Player)
+            {
+                Player player = (Player)fighterA;
+                String option = Game.BattleDialog("Mö", ConsoleColor.Red,player);
+                if(!option.Equals("normal"))
+                {
+                    lifesteal = true;
+                }
+            }
+
 
             double dmg2FighterB = fighterADmg - fighterBMit;
 
             if (dmg2FighterB > 0)
             {
                 fighterB.Health = fighterB.Health - dmg2FighterB;
+                if(lifesteal)
+                {
+                    fighterA.Health += dmg2FighterB;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Du hast deinem Gegner {0} gestohlen", dmg2FighterB.ToString());
+                    Console.ResetColor();
+                }
             }
             else dmg2FighterB = 0;
 
