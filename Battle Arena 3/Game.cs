@@ -28,13 +28,13 @@ namespace Battle_Arena_3
         {
             Random rdm = new Random();
             Fighter player = new Player(PlayerStats.CharacterName, 100, 15, 5,50);
-            for (int i = 0; i < 3; i++)
+            for (int i = 1; i < 6; i++)
             {
-                int hp = rdm.Next(80, 120);
-                int atk = rdm.Next(5, 15);
-                int armor = rdm.Next(2, 10);
+                int hp = rdm.Next(40, 70) * i/2;
+                int atk = rdm.Next(5, 15) * i/2;
+                int armor = rdm.Next(2, 6) *i/2;
                 Dialog("Ein Wilder Bär greift dich an!", ConsoleColor.Cyan);
-                Enemy enemy = new Enemy("Bär", hp, atk, armor, 50, 50);
+                Enemy enemy = new Enemy("Bär", hp, atk, armor, 50, 50,3);
                 Battle.StartFight(player, enemy);
                 if (!Battle.winner)
                 {
@@ -63,7 +63,7 @@ namespace Battle_Arena_3
             Console.WriteLine(message);
             Console.ResetColor();
         }
-        public static void Dialog(ConsoleColor color, int xp, int gold)
+        public static void Dialog(ConsoleColor color, double xp, double gold)
         {
             Console.ForegroundColor = color;
             Console.WriteLine("Du erhälst {0} XP und {1} Gold",xp,gold);

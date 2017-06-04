@@ -8,16 +8,19 @@ namespace Battle_Arena_3
 {
     class Enemy : Fighter
     {
-        public int Gold { get; set; }
-        public int Xp { get; set; }
-        public Enemy(string name, double health, double attackMax, double armorMax,int xp, int gold)
+        public double Gold { get; set; }
+        public double Xp { get; set; }
+        public int Level { get; set; }
+        public Enemy(string name, double health, double attackMax, double armorMax,int xp, int gold, int level)
         {
+            this.Level = level;
             this.Name = name;
-            this.Health = health;
-            this.AttackMax = attackMax;
-            this.ArmorMax = armorMax;
-            this.Gold = gold;
-            this.Xp= xp;
+            this.Health = EnemyUtils.calculateScaling(health,level);
+            this.AttackMax = EnemyUtils.calculateScaling(attackMax, level);
+            this.ArmorMax = EnemyUtils.calculateScaling(armorMax, level);
+            this.Gold = EnemyUtils.calculateScaling(gold, level);
+            this.Xp = EnemyUtils.calculateScaling(xp, level);
+
         }
 
     }

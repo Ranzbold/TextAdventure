@@ -13,7 +13,7 @@ namespace Battle_Arena_3
         {
             while(true)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(400);
                 if(GetAttackResult(player, enemy) == "gameover")
                 {
                     Console.WriteLine("Game Over");
